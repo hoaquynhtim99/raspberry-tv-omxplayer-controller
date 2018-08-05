@@ -1,0 +1,153 @@
+// Custom form
+
+.custom-control {
+    min-height: 1.7rem;
+    min-width: 1.7rem;
+    margin-top: .1875rem;
+    margin-bottom: 1.1105rem;
+}
+
+.custom-control-label {
+    position: static;
+    display: inline-block;
+    line-height: 1.7;
+}
+
+.custom-control-label:after, 
+.custom-control-label:before {
+    top: 0;
+    left: 0;
+}
+
+/* Custom checkbox */
+.custom-checkbox .custom-control-label:before {
+    content: "";
+    width: 1.699rem;
+    height: 1.699rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0 0;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    border-color: $blue;
+}
+
+.custom-control-input:checked~.custom-control-label::after {
+    color: $blue;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+    content: "\f00c";
+    font-size: 1.0769rem;
+    font-family: "Font Awesome 5 Free";
+    margin: 0 0;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.custom-control-input:checked~.custom-control-color::after {
+    background-color: $blue;
+    color: $white;
+    border-radius: $border-radius;
+}
+
+.custom-control-input.is-valid~.custom-control-label::before, 
+.was-validated .custom-control-input:valid~.custom-control-label::before {
+    background-color: $white;
+    border-color: $green;
+    color: $green;
+}
+
+.custom-control-input.is-valid~.custom-control-label::after, 
+.was-validated .custom-control-input:valid~.custom-control-label::after {
+    color: $green;
+}
+
+.custom-control-input.is-invalid~.custom-control-label::before, 
+.was-validated .custom-control-input:invalid~.custom-control-label::before {
+    background-color: $white;
+    border-color: $red;
+    color: $red;
+}
+
+.custom-control-input.is-invalid~.custom-control-label::after, 
+.was-validated .custom-control-input:invalid~.custom-control-label::after {
+    color: $red;
+}
+
+.custom-control-input:checked.is-valid~.custom-control-color::after, 
+.was-validated .custom-control-input:checked:valid~.custom-control-color::after {
+    background-color: $green;
+    color: $white;
+}
+
+.custom-control-input:checked.is-invalid~.custom-control-color::after, 
+.was-validated .custom-control-input:checked:invalid~.custom-control-color::after {
+    background-color: $red;
+    color: $white;
+}
+
+/* Custom Radio */
+.custom-radio .custom-control-label:before {
+    content: "";
+    border: 1px solid $gray-400;
+    width: 1.77592rem;
+    height: 1.77592rem;
+    margin: 0 0;
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+    content: "\f111";
+    width: 1.77592rem;
+    height: 1.77592rem;
+    margin: 0 0;
+    font-size: 0.923rem;
+    font-family: "Font Awesome 5 Free";
+    text-align: center;
+    line-height: 2;
+    font-weight: 900;
+}
+
+.custom-radio-icon {
+    padding: 7px 0;
+    width: 52px;
+    height: 52px;
+}
+
+.custom-radio-icon .custom-control-label {
+    cursor: pointer;
+    margin: 0;
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+    border: 1px solid $gray-400;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 28px;
+    vertical-align: middle;
+    color: $gray;
+    
+    &:before,
+    &:after {
+        display: none;
+    }
+}
+
+.custom-radio-icon input[type=radio]:checked+.custom-control-label {
+    border-color: $blue;
+    color: $blue;
+    background-color: $white;
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-color::after {
+    border-radius: 50%;
+}
+
+/* Custom in form group */
+.input-group-append .custom-control, 
+.input-group-prepend .custom-control {
+    margin: 0;
+    padding: 0;
+}

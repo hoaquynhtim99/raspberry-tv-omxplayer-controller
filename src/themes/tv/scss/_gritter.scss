@@ -1,0 +1,148 @@
+#gritter-notice-wrapper {
+    width: 360px;
+    top: 82px;
+}
+
+.gritter-item-wrapper {
+    background: url(../libs/gritter/images/gritter-bg.png);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .2)
+}
+
+.gritter-item-wrapper .gritter-item {
+    font-family: 'Roboto', sans-serif;
+    background: 0 0;
+    padding: 0;
+    display: table;
+    table-layout: fixed;
+    width: 100%
+}
+
+.gritter-item-wrapper .gritter-item .gritter-img-container {
+    display: table-cell;
+    width: 26%;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #302f2f;
+}
+
+.gritter-item-wrapper .gritter-item .gritter-img-container .gritter-image {
+    float: none;
+}
+
+.gritter-item-wrapper .gritter-item .gritter-content {
+    width: auto;
+}
+
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-with-image,
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-without-image {
+    padding: 15px 35px 17px 15px;
+    color: #d9d9d9;
+    width: 267px;
+    display: table-cell;
+}
+
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-with-image .gritter-close,
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-without-image .gritter-close {
+    display: block;
+    top: 0;
+    right: 0;
+    left: auto;
+    height: 30px;
+    width: 30px;
+    font-size: 0;
+    background: 0 0;
+    text-indent: inherit;
+    opacity: .4;
+}
+
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-with-image .gritter-close:hover,
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-without-image .gritter-close:hover {
+    opacity: .8;
+}
+
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-with-image .gritter-close:after,
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-without-image .gritter-close:after {
+    content: '\f00d';
+    font-family: "Font Awesome 5 Free";
+    color: #FFF;
+    font-size: 1.230rem;
+    text-shadow: none;
+    line-height: 35px;
+    margin-left: 7px;
+    font-weight: 900;
+}
+
+.gritter-item-wrapper.clean .gritter-item,
+.gritter-item-wrapper.clean .gritter-item .gritter-content,
+.gritter-item-wrapper.clean .gritter-item .gritter-content .gritter-close:after {
+    color: #404040;
+}
+
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-with-image .gritter-title,
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-without-image .gritter-title {
+    text-shadow: none;
+    font-weight: 300;
+    font-size: 1.308rem;
+}
+
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-with-image p,
+.gritter-item-wrapper .gritter-item .gritter-content.gritter-without-image p {
+    font-size: .9231rem;
+    line-height: 19px;
+}
+
+.gritter-item-wrapper .gritter-item .gritter-content .gritter-without-image {
+    border-left: 0;
+}
+
+.gritter-item-wrapper.img-rounded {
+    border-radius: 0;
+}
+
+.gritter-item-wrapper.img-rounded .gritter-img-container .gritter-image {
+    border-radius: 50%;
+}
+
+.gritter-item-wrapper.clean {
+    background: #FFF;
+}
+
+.gritter-item-wrapper.clean .gritter-item .gritter-img-container {
+    background-color: #fafafa;
+}
+
+.gritter-item-wrapper.clean .gritter-item .gritter-content .gritter-close {
+    opacity: .5;
+}
+
+.gritter-item-wrapper.color .gritter-item .gritter-content {
+    color: #FFF;
+}
+
+.gritter-item-wrapper.color .gritter-item .gritter-content .gritter-close {
+    opacity: .7;
+}
+
+.gritter-item-wrapper.color .gritter-item .gritter-content .gritter-close:hover {
+    opacity: 1;
+}
+
+.gritter-item-wrapper.primary {
+    background: $blue;
+}
+
+.gritter-item-wrapper.success {
+    background: $green;
+}
+
+.gritter-item-wrapper.warning {
+    background: $yellow;
+}
+
+.gritter-item-wrapper.danger {
+    background: $red;
+}
+
+.gritter-item-wrapper.dark {
+    background: #3d3c3c;
+}

@@ -1,0 +1,36 @@
+.slider.slider-vertical {
+    margin-right: 13px
+}
+
+.slider.slider-vertical .slider-handle {
+    margin-left: -1px
+}
+
+.slider.slider-horizontal {
+    height: 24px
+}
+
+.slider.slider-horizontal .slider-track {
+    height: 8px
+}
+
+.slider-selection {
+    background: $blue;
+    border: 1px solid $blue;
+    box-shadow: none
+}
+
+.slider-track {
+    background: #f2f2f2;
+    box-shadow: none
+}
+
+.slider-handle {
+    opacity: 1;
+    background: #FFF;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .12);
+    height: 22px;
+    width: 22px;
+    transition: box-shadow .2s ease-in-out
+}

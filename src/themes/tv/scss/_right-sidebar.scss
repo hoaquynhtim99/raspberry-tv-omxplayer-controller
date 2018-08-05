@@ -1,0 +1,130 @@
+.main-right-sidebar {
+    position: fixed;
+    background-color: #FAFAFA;
+    margin-top: 61px;
+    padding-bottom: 61px;
+    width: 290px;
+    height: 100%;
+    right: -290px;
+    top: 0;
+    bottom: 0;
+    border-left: 1px solid #e8e8e8;
+    z-index: 1031;
+    
+    .sb-content {
+        display: table;
+        table-layout: fixed;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .tab-panel {
+        height: 100%;
+        display: table-row;
+        
+        .tab-content {
+            height: 100%;
+            position: relative;
+            width: 100%;
+            padding: 0;
+            background: 0 0;
+            display: table-cell;
+            overflow: hidden;
+            
+            .tab-pane {
+                height: 100%;
+                position: relative;
+                width: 100%;
+            }
+        }
+    }
+    
+    .nav-tabs > li.nav-item:last-child {
+        margin-right: 0;
+    }
+}
+
+body.open-right-sidebar {
+    .main-right-sidebar {
+        right: 0;
+    }
+    
+    a.nv-toggle-right-sidebar {
+        color: $blue;
+    }
+}
+
+.tab-settings {
+    .nv-scroller {
+        padding: 10px 20px 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .category-title {
+        display: block;
+        font-size: 1.154rem;
+        font-weight: 400;
+        color: gray;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ebebeb;
+        margin-bottom: 15px;
+    }
+}
+
+.settings-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+    
+    >li {
+        margin: 0;
+        padding: 5px 0;
+        line-height: 24px;
+        font-size: 1.077rem;
+        
+        .switch-button {
+            float: right;
+            margin-left: 5px;
+        }
+        
+        .name {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
+
+.tab-languages {
+    .nv-scroller {
+        padding: 10px 20px 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .category-title {
+        display: block;
+        font-size: 1.154rem;
+        font-weight: 400;
+        color: gray;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ebebeb;
+        margin-bottom: 15px;
+    }
+}
+
+.languages-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+}

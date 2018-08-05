@@ -1,0 +1,44 @@
+.main-header .main-icons-nav > li.dropdown .main-sys-menu {
+    .content {
+        padding: 20px 15px;
+    }
+}
+
+.main-sys-menu .nv-scroller {
+    max-height: calc(100vh - 80px);
+}
+
+@if $enable-responsive {
+    @media (min-width: map-get($grid-breakpoints, "lg")) {
+        .main-header .main-icons-nav > li.dropdown .main-sys-menu {
+            width: 800px;
+        }
+    }
+    
+    @media (min-width: (map-get($grid-breakpoints, "sm") - 0.02)) and (max-width: map-get($grid-breakpoints, "lg")) {
+        .main-header .main-icons-nav > li.dropdown .main-sys-menu {
+            width: calc(100% - 50px);
+        }
+    }
+}
+
+.main-sys-menu .sys-menu {
+    margin: 0 0 20px 0;
+    padding: 0;
+    list-style: none;
+
+    >li {
+        padding: 3px 0;
+    }
+    
+    >li.lead {
+        padding-top: 0;
+        border-bottom: 1px #e6e5e5 solid;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+    
+    a:hover {
+        color: $blue;
+    }
+}
