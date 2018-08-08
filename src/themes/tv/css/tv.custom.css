@@ -1,0 +1,543 @@
+/**
+ * @Project TAN DUNG RASPBERRY TV
+ * @Author PHAN TAN DUNG <phantandung92@gmail.com>
+ * @Copyright (C) 2018 PHAN TAN DUNG. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate Sunday, August 5, 2018 9:53:00 AM GMT+07:00
+ */
+
+body {
+    background-color: #fff;
+}
+
+.wrapper {
+    padding-top: 0;
+}
+
+.tv-header-bar {
+    padding: 4px 8px;
+    background-color: #4285f4;
+    flex-wrap: nowrap;
+    display: flex;
+}
+
+.tv-header-bar>.logo {
+    flex: 0 0 40px;
+    max-width: 40px;
+}
+
+.tv-header-bar>.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.tv-header-bar>.page-title {
+    flex: 1;
+}
+
+.tv-header-bar>.page-title h1 {
+    margin: 0;
+    margin-left: 12px;
+    font-size: 1.230rem;
+    line-height: 40px;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -mz-line-clamp: 1;
+    line-clamp: 1;
+    max-height: 40px;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.tv-header-bar>.menu {
+    flex: 0;
+}
+
+.tv-header-bar>.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.tv-header-bar>.menu ul li {
+    flex: 1;
+    line-height: 24px;
+    margin: 8px 6px;
+}
+
+.tv-header-bar>.menu ul li a {
+    color: #fff;
+    display: block;
+    height: 24px;
+}
+
+.tv-search-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: hsla(0,0%,6.7%,.8);
+}
+
+.open-search .tv-search-wrapper {
+    display: block;
+}
+
+.tv-search-wrapper>.search-form {
+    padding: 4px 8px;
+    background-color: hsl(0,0%,93.3%);;
+    flex-wrap: nowrap;
+    display: flex;
+}
+
+.tv-search-wrapper>.search-form>.logo {
+    flex: 0 0 40px;
+    max-width: 40px;
+}
+
+.tv-search-wrapper>.search-form>.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.tv-search-wrapper>.search-form>.form {
+    flex: 1;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.tv-search-wrapper>.search-form>.form .form-control,
+.tv-search-wrapper>.search-form>.form .form-control:active,
+.tv-search-wrapper>.search-form>.form .form-control:focus {
+    height: 24px;
+    border: 0;
+    background-color: transparent;
+    background-image: none;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #737373;
+    margin: 0;
+    padding: 0;
+    margin-top: 8px;
+    border-radius: 0;
+}
+
+.tv-search-wrapper>.search-form>.form .form-control:focus {
+    border-bottom-width: 2px;
+    border-bottom-color: #3f51b5;
+    height: 25px;
+}
+
+.tv-search-wrapper>.search-form>.menu {
+    flex: 0;
+}
+
+
+.tv-search-wrapper>.search-form>.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.tv-search-wrapper>.search-form>.menu ul li {
+    flex: 1;
+    line-height: 24px;
+    margin: 8px 6px;
+}
+
+.tv-search-wrapper>.search-form>.menu ul li a {
+    color: hsla(0,0%,6.7%,.6);;
+    display: block;
+    height: 24px;
+}
+
+.tv-player-control {
+    background-color: #f9f9f9;
+    padding: 8px;
+    border-top: 1px #e5e5e5 solid;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.tv-player-control .ct-buttons {
+    text-align: center;
+}
+
+.tv-player-control .ct-buttons a {
+    color: hsla(0,0%,6.7%,.6);
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    margin: 0 4px;
+}
+
+.tv-player-control .ct-buttons a i {
+    line-height: 30px;
+    font-size: 30px;
+}
+
+.tv-player-control .ct-buttons a.disabled {
+    color: hsla(0,0%,6.7%,.1);
+}
+
+.tv-player-control .current-video-name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: hsla(0,0%,6.7%,.6);
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.tv-main-tabs {
+    background-color: #4285f4;
+    border-color: #4285f4;
+    box-shadow: 0 2px 2px hsla(0,0%,6.7%,.2);
+    padding-top: 8px;
+}
+
+.tv-main-tabs.nav-tabs > li.nav-item {
+    margin-right: 0;
+    flex: 1;
+}
+
+.tv-main-tabs.nav-tabs > li.nav-item a.nav-link.active {
+    border-bottom-color: #fff;
+    color: #fff;
+}
+
+.tv-main-tabs.nav-tabs > li.nav-item a.nav-link.active:focus, 
+.tv-main-tabs.nav-tabs > li.nav-item a.nav-link.active:hover {
+    color: #fff;
+}
+
+.tv-main-tabs.nav-tabs > li.nav-item a.nav-link {
+    color: hsl(0,0%,6.7%);
+    padding: 8px;
+    height: 40px;
+}
+
+.tv-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: hsla(0,0%,6.7%,.8);
+    z-index: 999999;
+    display: none;
+}
+
+body.loading .tv-loading {
+    display: block;
+}
+
+.tv-loading .ctn {
+    font-size: 50px;
+    height: 60px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-top: -30px;
+}
+
+.tv-loading .ctn i {
+    color: #999;
+}
+
+
+.yt-login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: hsla(0,0%,6.7%,.8);
+    z-index: 999999;
+    display: none;
+}
+
+body.mustlogin .yt-login {
+    display: block;
+}
+
+.yt-login .ctn {
+    margin: 100px 30px 0 30px;
+    text-align: center;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.yt-login .ctn a i {
+    line-height: 60px;
+    font-size: 60px;
+}
+
+#tv-main-page, #tv-search-page, #tv-search-page-load, 
+#tv-search-page-result,
+#tv-search-page-close {
+    display: none;
+}
+
+#tv-main-page {
+    display: block;
+}
+
+#tv-main-page .tab-content {
+    padding: 12px;
+    margin-bottom: 80px;
+}
+
+.tv-playlist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tv-playlist ul li {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 12px;
+    display: flex;
+}
+
+.tv-playlist ul li:last-child {
+    margin-bottom: 0;
+}
+
+.tv-playlist ul li>.img {
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.tv-playlist ul li>.img .thb {
+    width: 160px;
+    height: 90px;
+    position: relative;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.tv-playlist ul li>.img .thb img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-height: 100%;
+    margin: auto;
+}
+
+.tv-playlist ul li>.img .thb .time {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: end;
+    -moz-box-align: end;
+    -webkit-box-align: end;
+    box-align: end;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+}
+
+.tv-playlist ul li>.img .thb .time time {
+    margin: 5px;
+    padding: 4px 4px;
+    border-radius: 2px;
+    font-size: 0.846rem;
+    color: hsl(0,0%,93.3%);
+    background-color: hsla(0,0%,6.7%,.8);
+    line-height: 11px;
+}
+
+.tv-playlist ul li>.img .thb .time time span {
+    color: hsl(0,0%,93.3%);
+}
+
+.tv-playlist ul li>.metadata {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    -ms-flex-positive: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.tv-playlist ul li>.metadata .render {
+    display: block;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    -ms-flex-positive: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 0 8px;
+}
+
+.tv-playlist ul li>.metadata .render h4 {
+    max-height: 3.75em;
+    -webkit-line-clamp: 3;
+    font-size: 1.4rem;
+    overflow: hidden;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    line-height: 1.25;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    font-weight: normal;
+    font-size: 1.076rem;
+}
+
+.tv-playlist ul li>.metadata .render .subhead {
+    opacity: .6;
+    overflow: hidden;
+    display: -webkit-box;
+    line-height: 1.25;
+    max-height: 2.5em;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    font-weight: normal;
+    margin-top: 4px;
+}
+
+.tv-playlist ul li>.metadata .render .subhead .small {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: .923rem;
+}
+
+.tv-playlist ul li>.metadata .menu {
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.tv-playlist ul li>.metadata .menu a {
+    display: block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding: 8px;
+    color: hsl(0,0%,6.7%);
+}
+
+.direct-play-btns {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.direct-play-btns a:first-child {
+    flex: 1;
+    margin-right: 6px;
+}
+
+
+.direct-play-btns a:last-child {
+    flex: 1;
+    margin-left: 6px;
+}
+
+.direct-play-btns .micon {
+    vertical-align: middle;
+}
+
+.tv-body-content {
+    padding: 12px;
+}
+
+.tv-menu-item-search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -moz-box-align: center;
+    -webkit-box-align: center;
+    box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    z-index: 3;
+    display: none;
+}
+
+.tv-menu-item-search .ctn {
+    position: relative;
+    z-index: 2;
+    max-height: 100%;
+    overflow-y: auto;
+    color: hsl(0,0%,6.7%);
+    background-color: hsl(0,0%,100%);
+    width: 250px;
+}
+
+.tv-menu-item-search .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    cursor: pointer;
+    background-color: hsla(0,0%,6.7%,.8);
+}
+
+.tv-menu-item-search a {
+    display: block;
+    font-size: 1.076rem;
+    padding: 12px;
+    text-align: initial;
+    text-transform: unset;
+    color: hsl(0,0%,6.7%);
+}

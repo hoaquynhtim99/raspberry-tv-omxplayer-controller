@@ -19,7 +19,7 @@ var nvThemeCfg = {
 	collapsibleSidebarCollapsedClass: "main-collapsible-sidebar-collapsed",
 	toggleLeftSidebarBtnClass: "main-toggle-left-sidebar-btn",
 	openLeftSidebarOnClick: true,
-	scrollTop: true,
+	scrollTop: false,
 	scrollTopSpeed: 200
 };
 var nvBody = $("body");
