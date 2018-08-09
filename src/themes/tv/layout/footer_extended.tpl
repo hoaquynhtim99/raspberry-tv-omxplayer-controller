@@ -24,7 +24,7 @@
         </div>
         <div class="menu">
             <ul>
-                <li><a id="tv-search-clear" href="#"><i class="material-icons">close</i></a></li>
+                <li id="tv-search-clear-parent"><a id="tv-search-clear" href="#"><i class="material-icons">close</i></a></li>
                 <li><a id="tv-search-submit" href="#"><i class="material-icons">search</i></a></li>
             </ul>
         </div>

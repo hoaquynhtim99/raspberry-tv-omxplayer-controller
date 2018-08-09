@@ -541,3 +541,7 @@ body.mustlogin .yt-login {
     text-transform: unset;
     color: hsl(0,0%,6.7%);
 }
+
+#tv-search-clear-parent {
+    display: none;
+}

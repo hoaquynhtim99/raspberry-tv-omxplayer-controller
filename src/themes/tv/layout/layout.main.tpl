@@ -14,7 +14,7 @@
             <div id="tv-tab-directplay" role="tabpanel" class="tab-pane">
                 <p>Nhập trực tiếp url của video vào để phát url có dạng <code>https://www.youtube.com/watch?v=SNVE42IIY_s</code></p>
                 <div class="form-group">
-                    <input type="text" class="form-control" value="" id="tv-direct-play-input" placeholder="Url của video">
+                    <input type="text" class="form-control" value="" id="tv-direct-play-input" placeholder="Url của video" autocomplete="off">
                 </div>
                 <div class="direct-play-btns">
                     <a href="#" id="tv-direct-addvideo-to-pl" class="btn btn-success btn-lg"><i class="micon material-icons">add</i>Thêm vào playlist</a>

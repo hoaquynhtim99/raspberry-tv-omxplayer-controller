@@ -95,9 +95,15 @@ function buildPlaylist(data) {
 		html += '</div>';
 		html += '</li>';
 	});
-
-	$('#tv-tab-playlist').html('<ul>' + html + '</ul>');
-
+	if (html == '') {
+		$('#tv-tab-playlist').html('<div role="alert" class="alert alert-warning alert-dismissible">' +
+            '<button type="button" data-dismiss="alert" aria-label="Đóng" class="close"><i class="fas fa-times"></i></button>' +
+            '<div class="icon"><i class="fas fa-exclamation-triangle"></i></div>' +
+            '<div class="message">Chưa có video nào trong danh phát.</div>' +
+        '</div>');
+	} else {
+		$('#tv-tab-playlist').html('<ul>' + html + '</ul>');
+	}
 }
 
 /*
@@ -112,15 +118,26 @@ function controlPlayerButton(data) {
 
 	if (data.player_state == 'playing') {
 		// Đang phát thì cho phép các nút tua
-		$('[data-tvcmd="seek-600"]').removeClass('disabled');
-		$('[data-tvcmd="seek-30"]').removeClass('disabled');
-		$('[data-tvcmd="seek30"]').removeClass('disabled');
-		$('[data-tvcmd="seek600"]').removeClass('disabled');
+		if (data.tv_state == 'playing') {
+			// Kiểm tra trạng thái Tivi bởi lệnh điều khiển gửi trước khi tivi dừng được bài đang phát
+			$('[data-tvcmd="seek-600"]').removeClass('disabled');
+			$('[data-tvcmd="seek-30"]').removeClass('disabled');
+			$('[data-tvcmd="seek30"]').removeClass('disabled');
+			$('[data-tvcmd="seek600"]').removeClass('disabled');
+		}
 
 		// Đang phát thì nút play là nút dừng
 		$('[data-tvcmd="pause"]').find('i').html('pause');
-	} else {
+	} else if (data.player_state == 'pause') {
 		$('[data-tvcmd="pause"]').find('i').html('play_arrow');
+	} else {
+		// Dừng phát thì disable hết các nút công cụ
+		$('[data-tvcmd="seek-600"]').addClass('disabled');
+		$('[data-tvcmd="seek-30"]').addClass('disabled');
+		$('[data-tvcmd="seek30"]').addClass('disabled');
+		$('[data-tvcmd="seek600"]').addClass('disabled');
+		$('[data-tvcmd="voldown"]').addClass('disabled');
+		$('[data-tvcmd="volup"]').addClass('disabled');
 	}
 
 	if (data.player_state != 'stopped') {
@@ -133,8 +150,15 @@ function controlPlayerButton(data) {
 	if (data.tv_state == 'playing') {
 		$('[data-tvcmd="stop"]').removeClass('disabled');
 	} else {
-		// Tivi bị dừng thì cấm hết các nút
+		/*
+		 * Tivi bị dừng thì cấm hết các nút
+		 * Tuy nhiên nếu playlist đang có danh sách bài hát thì cho phép nút play
+		 */
 		$('.tv-player-control-btn').addClass('disabled');
+		if (data.playlistitems > 0) {
+			$('[data-tvcmd="pause"]').find('i').html('play_arrow');
+			$('[data-tvcmd="pause"]').removeClass('disabled');
+		}
 		// Nút play là hình play video
 		$('[data-tvcmd="pause"]').find('i').html('play_arrow');
 	}
@@ -207,6 +231,8 @@ function setVideoToPlaylist(data, position, activeTab) {
 		handleAppData(e.data);
 		if (activeTab) {
 			$('#tv-link-tab-playlist').tab('show');
+			// Làm rỗng cái input link trực tiếp video
+			$('#tv-direct-play-input').val('');
 		}
 	}).fail(function() {
 		alert("Có lỗi");
@@ -255,7 +281,37 @@ function playThisVideoNow(data, activeTab) {
 		handleAppData(e.data);
 		if (activeTab) {
 			$('#tv-link-tab-playlist').tab('show');
+			// Làm rỗng cái input link trực tiếp video
+			$('#tv-direct-play-input').val('');
 		}
+	}).fail(function() {
+		alert("Có lỗi");
+		hideLoader();
+	});
+}
+
+/*
+ * Phát ngay một video trong playlist
+ */
+function playPlaylistVideoNow(data) {
+	$('#tv-playlist-item-menu').css({display: 'none'});
+	showLoader();
+	$.ajax({
+		cache: false,
+		data: {
+			vid: data.vid,
+			playvideobyplaylistid: 1
+		},
+		dataType: 'json',
+		method: 'POST',
+		url: nv_base_siteurl + 'index.php?' + nv_lang_variable + '=' + nv_lang_data + '&' + nv_name_variable + '=' + nv_module_name + '&nocache=' + new Date().getTime()
+	}).done(function(e) {
+		hideLoader();
+		if (e.status != 'ok') {
+			alert(e.message);
+			return;
+		}
+		handleAppData(e.data);
 	}).fail(function() {
 		alert("Có lỗi");
 		hideLoader();
@@ -508,6 +564,14 @@ $(document).ready(function() {
 	});
 
 	/*
+	 * Đưa video trong playlist xuống cuối
+	 */
+	$('#tv-playlist-item-menu-playnow').on('click', function(e) {
+		e.preventDefault();
+		playPlaylistVideoNow($(this).parent().parent().data());
+	});
+
+	/*
 	 * Xóa video khỏi danh sách
 	 */
 	$('#tv-playlist-item-menu-del').on('click', function(e) {
@@ -548,6 +612,40 @@ $(document).ready(function() {
 				vimage: response.items[0].snippet.thumbnails.medium.url
 			};
 			setVideoToPlaylist(data, 'bottom', true);
+		});
+	});
+
+	/*
+	 * Xử lý khi ấn nút phát video trực tiếp từ link tìm kiếm
+	 */
+	$('#tv-direct-playvideo').on('click', function(e) {
+		e.preventDefault();
+		var videourl = trim($('#tv-direct-play-input').val());
+		if (videourl == '') {
+			$('#tv-direct-play-input').focus();
+			return;
+		}
+		var matches = videourl.match(/v\=([a-zA-Z0-9\-\_]+)/);
+		if (matches.length != 2) {
+			$('#tv-direct-play-input').focus();
+			return;
+		}
+		var request = gapi.client.youtube.videos.list({
+		    id: matches[1],
+		    part: 'snippet'
+		});
+		$('#tv-direct-playvideo').prop('disabled', true);
+		request.execute(function(response) {
+			$('#tv-direct-playvideo').prop('disabled', false);
+			if (response.pageInfo.totalResults != 1) {
+				$('#tv-direct-play-input').select().focus();
+				return;
+			}
+			var data = {
+				vid: response.items[0].id,
+				vtitle: response.items[0].snippet.title
+			};
+			playThisVideoNow(data, true);
 		});
 	});
 

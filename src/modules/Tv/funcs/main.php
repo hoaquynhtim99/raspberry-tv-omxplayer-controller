@@ -22,6 +22,24 @@ if ($nv_Request->isset_request('sendcontrolcmd', 'post')) {
     if ($cmd == 'stop') {
         $global_array_config['tivi_state'] = 'stopped';
         $db->query("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value='stopped' WHERE config_name='tivi_state'");
+    } elseif ($cmd == 'pause') {
+        if ($global_array_config['tivi_state'] == 'stopped') {
+            // Khi TIVI đang dừng thì kiểm tra playlist nếu có thì kích hoạt
+            $sql = "SELECT COUNT(*) FROM " . NV_PREFIXLANG . "_" . $module_data . "_playlists";
+            $numVideoInLists = $db->query($sql)->fetchColumn();
+            if ($numVideoInLists > 0) {
+                // Thiết lập Tivi lên chạy
+                $db->query("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value='playing' WHERE config_name='tivi_state'");
+            }
+        } else {
+            // Nút tạm dừng hoặc chạy tiếp
+            if ($global_array_config['player_state'] == 'pause') {
+                $global_array_config['player_state'] = 'playing';
+            } elseif ($global_array_config['player_state'] == 'playing') {
+                $global_array_config['player_state'] = 'pause';
+            }
+            $db->query("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value='" . $global_array_config['player_state'] . "' WHERE config_name='player_state'");
+        }
     }
 
     controlRaspberry($cmd);
@@ -58,6 +76,9 @@ if ($nv_Request->isset_request('cronex', 'get')) {
         $respon = 'TV is play video';
 
         if ($global_array_config['player_state'] == 'stopped') {
+            // Dừng phát thì cho tên video đang phát về rỗng
+            $db->query("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value='' WHERE config_name='current_video_title'");
+
             // Phát video do người dùng chỉ định
             if (!empty($global_array_config['next_video_code'])) {
                 $controlRespon = controlRaspberry('play', $global_array_config['next_video_code']);
@@ -134,6 +155,10 @@ if ($nv_Request->isset_request('cronex', 'get')) {
             // Nếu đang phát và người dùng bắt đổi bài khác
             $controlRespon = controlRaspberry('stop');
             if (isset($controlRespon['status'])) {
+                // Đánh dấu player dừng
+                $db->query("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value='stopped' WHERE config_name='player_state'");
+                $db->query("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value='' WHERE config_name='current_video_title'");
+
                 $respon = "Set TV stop play => " . $controlRespon['status'] . " (" . nv_EncString($controlRespon['message']) . ")";
             } else {
                 $respon = "Set TV stop play => TV not respon";
@@ -173,7 +198,6 @@ if ($nv_Request->isset_request('loadsysdata', 'post')) {
     nv_jsonOutput(getAppTVData());
 }
 
-
 /*
  * Phát một video bằng code
  */
@@ -199,6 +223,43 @@ if ($nv_Request->isset_request('playvideobycode', 'post')) {
 
         $respon['status'] = 'ok';
         $respon['data'] = getAppTVData();
+    }
+
+    nv_jsonOutput($respon);
+}
+
+/*
+ * Phát một video trong playlist
+ */
+if ($nv_Request->isset_request('playvideobyplaylistid', 'post')) {
+    $array = [];
+    $array['vid'] = $nv_Request->get_title('vid', 'post', '');
+
+    $respon = [
+        'status' => 'error',
+        'message' => 'Lỗi không xác định',
+        'data' => []
+    ];
+
+    if (empty($array['vid'])) {
+        $respon['message'] = "Lỗi: Chưa chỉ ra video cần phát";
+    } else {
+        // Tìm kiếm video này trong playlist
+        $sql = "SELECT * FROM " . NV_PREFIXLANG . "_" . $module_data . "_playlists WHERE code=" . $db->quote($array['vid']);
+        $video = $db->query($sql)->fetch();
+
+        if (empty($video)) {
+            $respon['message'] = "Lỗi: Không tìm thấy video này";
+        } else {
+            // Set TV là play
+            $db->query("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value='playing' WHERE config_name='tivi_state'");
+
+            // Cập nhật bài cần phát
+            $db->query("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value=" . $db->quote($video['id']) . " WHERE config_name='next_video_plid'");
+
+            $respon['status'] = 'ok';
+            $respon['data'] = getAppTVData();
+        }
     }
 
     nv_jsonOutput($respon);
